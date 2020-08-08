@@ -15,7 +15,9 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v1
         with:
+          dockerfile: data/Dockerfiles/parsedmarc/Dockerfile
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: patschi/parsedmarc
           tags: latest
+          add_git_labels: true
