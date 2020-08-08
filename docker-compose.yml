@@ -61,6 +61,8 @@ services:
     image: docker.elastic.co/kibana/kibana-oss:7.8.1
     environment:
       - elasticsearch.hosts=http://elasticsearch:9200
+      - telemetry.enabled=false
+      - telemetry.optIn=false
     expose: # only expose docker-internally
       - 5601
     restart: always
