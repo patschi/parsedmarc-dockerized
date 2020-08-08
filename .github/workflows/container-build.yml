@@ -17,5 +17,5 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          repository: patschi/parsedmarc-dockerized
+          repository: patschi/parsedmarc
           tags: latest
