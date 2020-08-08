@@ -4,11 +4,17 @@ Note: The standalone `parsedmarc` docker image can also be used, if interested: 
 
 ## Setup:
 ```
-$ cd /opt/
-$ git clone https://github.com/patschi/parsedmarc-dockerized.git
-$ cd parsedmarc-dockerized/
-$ nano docker-compose.yml # Edit docker-compose.yml and change environment variables below for geoipupdate from maxmind.
+$ git clone https://github.com/patschi/parsedmarc-dockerized.git /opt/parsedmarc-dockerized/
+$ cd /opt/parsedmarc-dockerized/ && cp data/conf/parsedmarc/config.sample.ini data/conf/parsedmarc/config.ini
+
+# Create environment file for your geoipupdate API settings (fill in your data)
+$ cat > geoipupdate.env <<EOF
+GEOIPUPDATE_ACCOUNT_ID=YOUR_ACCOUNT_ID
+GEOIPUPDATE_LICENSE_KEY=YOUR_LICENSE_KEY
+EOF
+
 $ nano data/conf/parsedmarc/config.ini # Edit parsedmarc config file (and change test to False when testing done!)
+
 $ docker-compose up -d
 ```
 

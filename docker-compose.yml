@@ -78,11 +78,13 @@ services:
 
   geoipupdate:
     image: maxmindinc/geoipupdate
+    env_file:
+      - geoipupdate.env
     environment:
-      - GEOIPUPDATE_ACCOUNT_ID=TO_BE_SET
-      - GEOIPUPDATE_LICENSE_KEY=TO_BE_SET
-      - GEOIPUPDATE_EDITION_IDS=TO_BE_SET
-      - GEOIPUPDATE_FREQUENCY=24
+      - GEOIPUPDATE_ACCOUNT_ID=${GEOIPUPDATE_ACCOUNT_ID}
+      - GEOIPUPDATE_LICENSE_KEY=${GEOIPUPDATE_LICENSE_KEY}
+      - "GEOIPUPDATE_EDITION_IDS=GeoLite2-ASN GeoLite2-City GeoLite2-Country"
+      - GEOIPUPDATE_FREQUENCY=${GEOIPUPDATE_FREQUENCY:-24}
       - GEOIPUPDATE_PRESERVE_FILE_TIMES=1
     restart: always
     volumes:
