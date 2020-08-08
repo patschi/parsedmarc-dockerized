@@ -1,21 +1,30 @@
 # parsedmarc-dockerized
 
-Note: The standalone `parsedmarc` docker image can also be used, if interested: [hub.docker.com/r/patschi/parsedmarc](https://hub.docker.com/r/patschi/parsedmarc).
+Note: The standalone `parsedmarc` docker image on [DockerHub @ patschi/parsedmarc](https://hub.docker.com/r/patschi/parsedmarc) can also be used, if interested.
 
 ## Setup:
+1. Get basics together:
 ```
-$ git clone https://github.com/patschi/parsedmarc-dockerized.git /opt/parsedmarc-dockerized/
-$ cd /opt/parsedmarc-dockerized/ && cp data/conf/parsedmarc/config.sample.ini data/conf/parsedmarc/config.ini
+git clone https://github.com/patschi/parsedmarc-dockerized.git /opt/parsedmarc-dockerized/
+cd /opt/parsedmarc-dockerized/ && cp data/conf/parsedmarc/config.sample.ini data/conf/parsedmarc/config.ini
+```
 
-# Create environment file for your geoipupdate API settings (fill in your data)
-$ cat > geoipupdate.env <<EOF
-GEOIPUPDATE_ACCOUNT_ID=YOUR_ACCOUNT_ID
-GEOIPUPDATE_LICENSE_KEY=YOUR_LICENSE_KEY
+2. Now we create an environment file for your geoipupdate settings from your [MaxMind account](https://www.maxmind.com/en/account/) (fill in your data!)
+```
+cat > geoipupdate.env <<EOF
+GEOIPUPDATE_ACCOUNT_ID=HERE_GOES_YOUR_ACCOUNT_ID
+GEOIPUPDATE_LICENSE_KEY=HERE_GOES_YOUR_LICENSE_KEY
 EOF
+```
 
-$ nano data/conf/parsedmarc/config.ini # Edit parsedmarc config file (and change test to False when testing done!)
+3. Next we change the `parsedmarc` config (see [docs](https://domainaware.github.io/parsedmarc/#configuration-file), and change `Test` to `False` when proper testing done)
+```
+nano data/conf/parsedmarc/config.ini
+```
 
-$ docker-compose up -d
+4. Finally, we start up the stack:
+```
+docker-compose up -d
 ```
 
 ### What's happening then?
@@ -23,7 +32,7 @@ $ docker-compose up -d
 1. First, the whole stack is being created and started.
 2. During the startup of the "init" container, all required steps are being taken care of - like generating a self-signed certificate for the webserver.
 3. Once kibana container is started up, the corresponding parsedmarc dashboard is automatically imported into Kibana.
-4. After a while you can access the Kibana dashboard under the shipped reverse proxy with at `https://IP:9999`.
+4. After a while you can access the Kibana dashboard under the shipped reverse proxy with at `https://HOST_IP:9999`.
 
 ## Credits
 
