@@ -9,11 +9,12 @@ git clone https://github.com/patschi/parsedmarc-dockerized.git /opt/parsedmarc-d
 cd /opt/parsedmarc-dockerized/ && cp data/conf/parsedmarc/config.sample.ini data/conf/parsedmarc/config.ini
 ```
 
-2. Now we create an environment file for your geoipupdate settings from your [MaxMind account](https://www.maxmind.com/en/account/) (fill in your data!)
+2. Now we create an environment file for your geoipupdate settings from your [MaxMind account](https://www.maxmind.com/en/account/). For update cycles see [here](https://support.maxmind.com/geoip-faq/geoip2-and-geoip-legacy-database-updates/how-often-are-the-geoip2-and-geoip-legacy-databases-updated/). (Fill in your data!)
 ```
 cat > geoipupdate.env <<EOF
 GEOIPUPDATE_ACCOUNT_ID=HERE_GOES_YOUR_ACCOUNT_ID
 GEOIPUPDATE_LICENSE_KEY=HERE_GOES_YOUR_LICENSE_KEY
+GEOIPUPDATE_FREQUENCY=24
 EOF
 ```
 
