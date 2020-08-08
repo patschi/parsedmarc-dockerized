@@ -1,4 +1,5 @@
-name: container-build
+name: Build parsedmarc container
+
 on:
   push:
     paths:

@@ -1,0 +1,23 @@
+name: Build parsedmarc-init container
+
+on:
+  push:
+    paths:
+      - 'data/Dockerfiles/parsedmarc-init/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v1
+        with:
+          path: data/Dockerfiles/parsedmarc/
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: patschi/parsedmarc
+          tags: init
+          add_git_labels: true

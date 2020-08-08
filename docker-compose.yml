@@ -2,9 +2,7 @@ version: '2.4'
 
 services:
   parsedmarc-init:
-    build:
-      context: ./data/Dockerfiles/parsedmarc-init/
-    image: parsedmarc-init
+    image: patschi/parsedmarc:init
     restart: always
     volumes:
       - ./data/conf/parsedmarc/:/etc/parsedmarc/:rw
@@ -20,9 +18,7 @@ services:
       start_period: 10s
 
   parsedmarc:
-    build:
-      context: ./data/Dockerfiles/parsedmarc/
-    image: parsedmarc
+    image: patschi/parsedmarc:latest
     volumes:
       - ./data/conf/parsedmarc/:/etc/parsedmarc/
       - ./data/data/geoipupdate/:/usr/share/GeoIP:z,ro
