@@ -9,7 +9,12 @@ git clone https://github.com/patschi/parsedmarc-dockerized.git /opt/parsedmarc-d
 cd /opt/parsedmarc-dockerized/ && cp data/conf/parsedmarc/config.sample.ini data/conf/parsedmarc/config.ini
 ```
 
-2. Now we create an environment file for your geoipupdate settings from your [MaxMind account](https://www.maxmind.com/en/account/). For update cycles see [here](https://support.maxmind.com/geoip-faq/geoip2-and-geoip-legacy-database-updates/how-often-are-the-geoip2-and-geoip-legacy-databases-updated/). (Fill in your data!)
+1. Next we change the `parsedmarc` config (see [docs](https://domainaware.github.io/parsedmarc/#configuration-file). You can set `Test` to `True` for testing purposes.)
+```
+nano data/conf/parsedmarc/config.ini
+```
+
+3. Now we create an environment file, containing your geoipupdate settings from your [MaxMind account](https://www.maxmind.com/en/account/) to allow the container to pull the databases. For update cycles of the databases, please see [here](https://support.maxmind.com/geoip-faq/geoip2-and-geoip-legacy-database-updates/how-often-are-the-geoip2-and-geoip-legacy-databases-updated/). (Fill in your data!)
 ```
 cat > geoipupdate.env <<EOF
 GEOIPUPDATE_ACCOUNT_ID=HERE_GOES_YOUR_ACCOUNT_ID
@@ -18,23 +23,18 @@ GEOIPUPDATE_FREQUENCY=24
 EOF
 ```
 
-3. Next we change the `parsedmarc` config (see [docs](https://domainaware.github.io/parsedmarc/#configuration-file), and change `Test` to `False` when proper testing done)
-```
-nano data/conf/parsedmarc/config.ini
-```
-
-4. Finally, we start up the stack:
+4. Finally, we start up the stack and wait:
 ```
 docker-compose up -d
 ```
 
 ### What's happening then?
 
-1. First, the whole stack is being created and started.
-2. During the startup of the "init" container, all required steps are being taken care of - like generating a self-signed certificate for the webserver.
-3. Once kibana container is started up, the corresponding parsedmarc dashboard is automatically imported into Kibana.
-4. After a while you can access the Kibana dashboard under the shipped reverse proxy with at `https://HOST_IP:9999`.
+1. First, the all containers of the stack are created and started. Please notice that this might take a while, as several containers have dependencies on others being in a healthy state (meaning that the service must be fully operating).
+2. During the startup of the `parsedmarc-init` container, all required steps and preparations are being taken care of - like generating a self-signed certificate for the included `nginx` webserver.
+3. Once the Kibana container - where you can view the dashboards - is started up, the corresponding parsedmarc dashboards are automatically imported into Kibana by the `parsedmarc-init` container.
+4. After some while, when everything is up and running, you can then access Kibana and its dashboards under the shipped reverse proxy at `https://HOST_IP:9999`. (Make sure to use HTTPS!)
 
 ## Credits
 
-Built on top of the awesome [parsedmarc](https://github.com/domainaware/checkdmarc), [Elasticsearch and Kibana](https://www.elastic.co/), [nginx](https://nginx.org), [Docker](https://docker.com) and using [MaxMind GeoIP](https://dev.maxmind.com/geoip/geoip2/geolite2/).
+Built with awesome [parsedmarc](https://github.com/domainaware/checkdmarc), [Elasticsearch and Kibana](https://www.elastic.co/), [nginx](https://nginx.org), [Docker](https://docker.com) and [MaxMind GeoIP](https://dev.maxmind.com/geoip/geoip2/geolite2/).
