@@ -30,12 +30,13 @@ services:
         condition: service_healthy
 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.8.1
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.15.1
     environment:
       - cluster.name=parsedmarc
       - discovery.type=single-node
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - xpack.security.enabled=false # required to prevent warnings in kibana dashboard. Security is not required as we're only operating docker-internally
     ulimits:
       memlock:
         soft: -1
@@ -58,7 +59,7 @@ services:
         condition: service_started
 
   kibana:
-    image: docker.elastic.co/kibana/kibana-oss:7.8.1
+    image: docker.elastic.co/kibana/kibana:7.15.1
     environment:
       - elasticsearch.hosts=http://elasticsearch:9200
       - telemetry.enabled=false
