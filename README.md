@@ -59,7 +59,7 @@ By default `parsedmarc-dockerized` is listening at port `9999` on all interfaces
 
 If you're running `parsedmarc-dockerized` on a server without a firewall it's freely accessible over the internet by everyone. If you want it to only listen on the host itself you can set it to `127.0.0.1:9999:443`
 
-You can then use an SSH tunnel to make it accessible on your local machine. On Linux and macOS this works with the command `ssh -NL 9999:127.0.0.1:9999 USER@HOST` (make sure to set `USER@HOST` for your server). If the SSH tunnel was successfully established you can connect to `https://localhost:9999` on your local machine to access Kibana and its dashboards.
+You can then use an SSH tunnel to make it accessible on your local machine. On Linux and macOS this works with the command `ssh -NL 9999:127.0.0.1:9999 USER@HOST` (make sure to set `USER@HOST` for your server). If the SSH tunnel was successfully established you can access Kibana and its dashboards on your local machine via https://localhost:9999. (Make sure to use HTTPS!).
 
 
 
