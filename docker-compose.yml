@@ -30,7 +30,7 @@ services:
         condition: service_healthy
 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.15.1
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.16.2
     environment:
       - cluster.name=parsedmarc
       - discovery.type=single-node
@@ -59,7 +59,7 @@ services:
         condition: service_started
 
   kibana:
-    image: docker.elastic.co/kibana/kibana:7.15.1
+    image: docker.elastic.co/kibana/kibana:7.16.2
     environment:
       - elasticsearch.hosts=http://elasticsearch:9200
       - telemetry.enabled=false
