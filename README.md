@@ -66,6 +66,9 @@ nano data/conf/parsedmarc/config.ini
 ```
 version: '3.9'
 services:
+  kibana:
+    environment:
+      SERVER_PUBLICBASEURL: https://yourdomain.com
   nginx:
     volumes:
       - ./data/conf/nginx/traefik.conf:/etc/nginx/conf.d/default.conf:ro
