@@ -1,4 +1,5 @@
 data/conf/nginx/ssl/
+/data/conf/nginx/.htpasswd
 data/conf/parsedmarc/config.ini
 data/conf/parsedmarc/flag.defaultRouteSet
 data/conf/parsedmarc/kibana_export.ndjson
