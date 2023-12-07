@@ -1,1 +1,9 @@
+data/conf/nginx/ssl/
 data/conf/parsedmarc/config.ini
+data/conf/parsedmarc/flag.defaultRouteSet
+data/conf/parsedmarc/kibana_export.ndjson
+data/data/elasticsearch/nodes/
+data/data/geoipupdate/.geoipupdate.lock
+data/data/geoipupdate/GeoLite2-Country.mmdb
+docker-compose.override.yml
+geoipupdate.env
