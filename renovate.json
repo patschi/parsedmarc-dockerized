@@ -6,6 +6,7 @@
   "dependencyDashboardTitle": "Renovate Dashboard",
   "rebaseWhen": "auto",
   "labels": ["renovate"],
+  "prHourlyLimit": 6,
   "assignees": [
     "@patschi"
   ],
