@@ -13,7 +13,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Build and push Docker image
-        uses: docker/build-push-action@v1
+        uses: docker/build-push-action@v5
         with:
           path: data/Dockerfiles/parsedmarc-init/
           username: ${{ secrets.DOCKER_USERNAME }}
