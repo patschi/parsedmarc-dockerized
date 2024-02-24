@@ -12,12 +12,16 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          path: data/Dockerfiles/parsedmarc-init/
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-          repository: patschi/parsedmarc
-          tags: init
-          add_git_labels: true
+          context: data/Dockerfiles/parsedmarc-init/
+          tags: patschi/parsedmarc:init
+          push: true
