@@ -15,7 +15,7 @@ This project's purpose providing an easy way deploying [parsedmarc](https://gith
     cp /opt/parsedmarc-dockerized/data/conf/parsedmarc/config.sample.ini /opt/parsedmarc-dockerized/data/conf/parsedmarc/config.ini
     ```
 
-2. Next we change the `parsedmarc` config (please make sure to [read the parsedmarc documentation throughly](https://domainaware.github.io/parsedmarc/#configuration-file). Adjust settings to your needs. (You can set `Test` to `True` for testing purposes.)
+2. Next we change the `parsedmarc` config (please make sure to [read the parsedmarc documentation throughly](https://domainaware.github.io/parsedmarc/#configuration-file)). Adjust settings to your needs. (You can set `Test` to `True` for testing purposes.)
 
     ```bash
     nano /opt/parsedmarc-dockerized/data/conf/parsedmarc/config.ini
