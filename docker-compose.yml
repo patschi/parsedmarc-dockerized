@@ -64,6 +64,7 @@ services:
       - elasticsearch.hosts=http://elasticsearch:9200
       - telemetry.enabled=false
       - telemetry.optIn=false
+      - security.showInsecureClusterWarning=false
     expose: # only expose docker-internally
       - 5601
     restart: always
