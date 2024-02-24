@@ -15,6 +15,14 @@ This project's purpose providing an easy way deploying [parsedmarc](https://gith
     cp /opt/parsedmarc-dockerized/data/conf/parsedmarc/config.sample.ini /opt/parsedmarc-dockerized/data/conf/parsedmarc/config.ini
     ```
 
+    If needed, Docker might need to be installed. On Debian/Ubuntu, as following:
+
+    ```bash
+    curl -sSL https://get.docker.com/ | CHANNEL=stable sh
+    systemctl enable --now docker
+    apt install docker-compose-plugin
+    ```
+
 2. Next we change the `parsedmarc` config (please make sure to [read the parsedmarc documentation throughly](https://domainaware.github.io/parsedmarc/#configuration-file)). Adjust settings to your needs. (You can set `Test` to `True` for testing purposes.)
 
     ```bash
@@ -37,8 +45,10 @@ This project's purpose providing an easy way deploying [parsedmarc](https://gith
 
     ```bash
     cd /opt/parsedmarc-dockerized/
-    docker-compose up -d
+    docker compose up -d
     ```
+
+    **Note**: Depending on your setup, the startup might take couple of minutes - especially the more resource-intensive applications elasticsearch and kibana.
 
 ### What's happening then?
 
@@ -50,6 +60,8 @@ However, should you still want more details:
 2. During the startup of the `parsedmarc-init` container, all required steps and preparations are being taken care of - like generating a self-signed certificate for the included `nginx` webserver.
 3. Once the Kibana container - where you can view the dashboards - is running, the corresponding parsedmarc dashboards are automatically imported into Kibana from the `parsedmarc-init` container.
 4. After some while, when everything is up and running, you can then access Kibana and its dashboards under the shipped reverse proxy at `https://HOST_IP:9999`. (Make sure to use HTTPS!)
+
+**Note:** It is recommended to use some reverse proxy in front of this docker stack, should you want to have parsedmarc exposed externally. Also SSL termination and any authentication should be done externally.
 
 ## Configuration
 
@@ -82,3 +94,24 @@ You can then use an SSH tunnel to make it accessible on your local machine. On L
 ## Credits
 
 Built with awesome [parsedmarc](https://github.com/domainaware/parsedmarc), [Elasticsearch and Kibana](https://www.elastic.co/), [nginx](https://nginx.org), [Docker](https://docker.com) and [MaxMind GeoIP](https://dev.maxmind.com/geoip/geoip2/geolite2/). Together with [awesome contributors](https://github.com/patschi/parsedmarc-dockerized/graphs/contributors) in this project.
+
+## Troubleshooting
+
+### Error 'No matching indices found: No indices match pattern "dmarc_aggregate*"' in Kibana dashboard
+
+This typically means that no data has been imported by parsedmarc in elasticsearch yet. See [github.com/domainaware/parsedmarc/issues/268](https://github.com/domainaware/parsedmarc/issues/268) for reference. parsedmarc processes certain amount of emails (see `batch_size` in documentation) before saving the data to elasticsearch.
+
+For example, debug logs from parsedmarc will indicate that indices will be only created upon saving a report to elasticsearch:
+
+```text
+    INFO:__init__.py:1019:Parsing mail from postmaster@example.com on 2020-09-19 23:04:13+00:00
+    INFO:elastic.py:364:Saving aggregate report to Elasticsearch
+   DEBUG:elastic.py:284:Creating Elasticsearch index: dmarc_aggregate-2020-09-17
+```
+
+### I am seeing 'Unrecognized layerType EMS_VECTOR_TILE'
+
+There might have been changes to the dashboard view of parsedmarc, requiring new layer types older Kibana/Elasticsearch versions do not support.
+
+**Fix:**
+Update to Elasticsearch/Kibana 8.x.
