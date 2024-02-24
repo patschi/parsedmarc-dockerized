@@ -59,7 +59,7 @@ services:
         condition: service_started
 
   kibana:
-    image: docker.elastic.co/kibana/kibana:7.16.2
+    image: docker.elastic.co/kibana/kibana:8.12.2
     environment:
       - elasticsearch.hosts=http://elasticsearch:9200
       - telemetry.enabled=false
