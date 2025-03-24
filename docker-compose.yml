@@ -30,7 +30,7 @@ services:
         condition: service_healthy
 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.18
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.28
     environment:
       - cluster.name=parsedmarc
       - discovery.type=single-node
