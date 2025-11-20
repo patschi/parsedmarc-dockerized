@@ -31,7 +31,7 @@ This project's purpose providing an easy way deploying [parsedmarc](https://gith
 
     **Important note**: This project's purpose is NOT to manage this configuration file for you. Should defaults change of the parsedmarc project, you must change the configuration file yourself.
 
-3. Now, we create an environment file containing the geoipupdate settings from your [MaxMind account](https://www.maxmind.com/en/account/sign-in). This allows the respective container to pull the geolocation databases automatically. For update cycles of the databases, please see [here](https://support.maxmind.com/geoip-faq/geoip2-and-geoip-legacy-database-updates/how-often-are-the-geoip2-and-geoip-legacy-databases-updated/). (Fill in your account details!)
+3. Now, we create an environment file containing the geoipupdate settings from your [MaxMind account](https://www.maxmind.com/en/account/sign-in). This allows the respective container to pull the geolocation databases automatically. For update cycles of the databases, please see [here](https://support.maxmind.com/knowledge-base/articles/latency-and-uptime-for-the-geoip-web-services). (Fill in your account details!)
 
     ```bash
     cat > /opt/parsedmarc-dockerized/geoipupdate.env <<EOF
